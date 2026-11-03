@@ -62,6 +62,8 @@ def main():
     parser.add_argument('--device', action='store_true',
                         help='build for an iPhone instead of the simulator')
     parser.add_argument('--out', help='output directory, under src')
+    parser.add_argument('--gen-only', action='store_true',
+                        help='patch and generate the build, but do not build')
     args = parser.parse_args()
     src = args.src.expanduser().resolve()
 
@@ -74,6 +76,8 @@ def main():
         environment='device' if args.device else 'simulator',
         signing='true' if args.device else 'false'), encoding='utf-8')
     subprocess.run(['gn', 'gen', out], cwd=src, check=True)
+    if args.gen_only:
+        return 0
     return subprocess.run(['autoninja', '-C', out, 'chrome'], cwd=src).returncode
 
 
