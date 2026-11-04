@@ -29,6 +29,9 @@ is_component_build = false
 symbol_level = 0
 enable_precompiled_headers = false
 use_remoteexec = false
+# Unofficial builds otherwise turn on the experiments of
+# fieldtrial_testing_config.json, which break sync with an Arcomium server.
+disable_fieldtrial_testing_config = true
 ios_enable_code_signing = {signing}
 """
 
