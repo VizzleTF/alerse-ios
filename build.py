@@ -72,6 +72,9 @@ def main():
 
     apply_patches(src)
     shutil.copytree(BRANDING, src / 'ios', dirs_exist_ok=True)
+    # Renaming the product moves hundreds of translations: a script, not a patch.
+    subprocess.run([sys.executable, str(CORE / 'tools' / 'rename_product.py'), str(src)],
+                   check=True)
 
     out = args.out or ('out/Device' if args.device else 'out/Sim')
     (src / out).mkdir(parents=True, exist_ok=True)
