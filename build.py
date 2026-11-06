@@ -71,6 +71,8 @@ def main():
     src = args.src.expanduser().resolve()
 
     apply_patches(src)
+    # Arcomium's own source files are copied over the tree, not patched in.
+    shutil.copytree(CORE / 'src', src, dirs_exist_ok=True)
     shutil.copytree(BRANDING, src / 'ios', dirs_exist_ok=True)
     # Renaming the product moves hundreds of translations: a script, not a patch.
     subprocess.run([sys.executable, str(CORE / 'tools' / 'rename_product.py'), str(src)],
