@@ -1,11 +1,14 @@
-# Arcomium for iOS
+# Alerse for iOS
 
-iOS builds of [Arcomium](https://github.com/VizzleTF/arcomium), an Arc-style browser.
+iOS builds of [Alerse](https://github.com/VizzleTF/alerse) (called Arcomium up to
+0.1.7), an Arc-style browser. The app built here is still named Arcomium: the `arcomium`
+submodule is pinned at 0.1.1, before the rename; the core's iOS series names it Alerse
+(`ios/arcomium-ios-name.patch`) once this repository moves to it.
 ungoogled-chromium has no iOS build, so this repository applies the arcomium iOS patch
 series (`arcomium/patches/series-ios`) to a clean Chromium iOS checkout of the same
 version. `arcomium` is a git submodule.
 
-Work in progress. The iOS app syncs with the other Arcomium clients: set it up at
+Work in progress. The iOS app syncs with the other Alerse (and Arcomium) clients: set it up at
 `chrome://arcomium-sync` with the server address and the 24-word sync code.
 The `arcomium` submodule is pinned at 0.1.1 (Chromium 156), and the iOS series has no
 `sync/e2e-before-data.patch`: the app does not hold data back until the chain's
