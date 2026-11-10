@@ -6,17 +6,17 @@
 
 <p align="center">The iPhone build of Alerse: its sync on Chromium for iOS, work in progress.</p>
 
-iOS builds of [Alerse](https://github.com/VizzleTF/alerse) (called Arcomium up to
-0.1.7), an Arc-style browser. The app built here is still named Arcomium: the `arcomium`
-submodule is pinned at 0.1.1, before the rename; the core's iOS series names it Alerse
-(`ios/arcomium-ios-name.patch`) once this repository moves to it.
-ungoogled-chromium has no iOS build, so this repository applies the arcomium iOS patch
-series (`arcomium/patches/series-ios`) to a clean Chromium iOS checkout of the same
-version. `arcomium` is a git submodule.
+iOS builds of [Alerse](https://github.com/VizzleTF/alerse), an Arc-style browser. The
+app built here still has the project's earlier name: the `alerse` submodule is pinned at
+0.1.1, before the rename; the core's iOS series names it Alerse
+(`ios/alerse-ios-name.patch`) once this repository moves to it.
+ungoogled-chromium has no iOS build, so this repository applies the core's iOS patch
+series (`alerse/patches/series-ios`) to a clean Chromium iOS checkout of the same
+version. `alerse` is a git submodule.
 
-Work in progress. The iOS app syncs with the other Alerse (and Arcomium) clients: set it up at
-`chrome://arcomium-sync` with the server address and the 24-word sync code.
-The `arcomium` submodule is pinned at 0.1.1 (Chromium 156), and the iOS series has no
+Work in progress. The iOS app syncs with the other Alerse clients: set it up at
+its sync page (`chrome://arcomium-sync` in the pinned 0.1.1) with the server address and the 24-word sync code.
+The `alerse` submodule is pinned at 0.1.1 (Chromium 156), and the iOS series has no
 `sync/e2e-before-data.patch`: the app does not hold data back until the chain's
 passphrase is set. Start a sync chain on a desktop and only join it from the iPhone.
 
@@ -29,7 +29,7 @@ passphrase is set. Start a sync chain on a desktop and only join it from the iPh
 
 ### Get Chromium iOS
 
-The version must match `arcomium`'s Chromium version (156.0.8078.79):
+The version must match `alerse`'s Chromium version (156.0.8078.79):
 
 ```sh
 mkdir chromium-ios && cd chromium-ios
@@ -41,8 +41,8 @@ gclient sync --nohooks --no-history -D && gclient runhooks
 ### Build
 
 ```sh
-git clone --recurse-submodules <this repository> arcomium-ios
-python3 arcomium-ios/build.py --src chromium-ios/src
+git clone --recurse-submodules <this repository> alerse-ios
+python3 alerse-ios/build.py --src chromium-ios/src
 ```
 
 `build.py` applies the patches (skipping ones already applied), copies the iOS branding,
@@ -52,13 +52,13 @@ the tree and generates the build without building it.
 
 The build sets `disable_fieldtrial_testing_config = true`. A non-official build would
 otherwise turn on the experiments of `fieldtrial_testing_config.json`, among them one
-whose checks stop Arcomium's sync on iOS (`kSyncUsePropagatedAccessToken`, enabled for
+whose checks stop Alerse's sync on iOS (`kSyncUsePropagatedAccessToken`, enabled for
 iOS in that file; its `CHECK` in `components/sync/service/sync_auth_manager.cc` does not
-hold when Arcomium hands sync its token itself).
+hold when Alerse hands sync its token itself).
 
 The iOS series takes the platform-independent sync client
-(`sync/arcomium-sync-core.patch`) from the desktop series and adds the iOS wiring, the
-`chrome://arcomium-sync` page and the name. The page accepts any `http` or `https`
+(`sync/alerse-sync-core.patch`) from the desktop series and adds the iOS wiring, the
+`chrome://alerse-sync` page and the name. The page accepts any `http` or `https`
 server address; the desktop page takes plain `http` only for a server on the same
 computer.
 

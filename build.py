@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Build Arcomium for iOS: Chromium iOS + the Arcomium iOS patch series.
+"""Build Alerse for iOS: Chromium iOS + the Alerse iOS patch series.
 
-ungoogled-chromium has no iOS build, so this applies arcomium/patches/series-ios
+ungoogled-chromium has no iOS build, so this applies alerse/patches/series-ios
 to a clean Chromium iOS checkout of the same version, copies the iOS branding
 files, writes args.gn and builds the app.
 
@@ -16,7 +16,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-CORE = ROOT / 'arcomium'
+CORE = ROOT / 'alerse'
 PATCHES = CORE / 'patches'
 BRANDING = CORE / 'branding' / 'ios'
 
@@ -30,7 +30,7 @@ symbol_level = 0
 enable_precompiled_headers = false
 use_remoteexec = false
 # Unofficial builds otherwise turn on the experiments of
-# fieldtrial_testing_config.json, which break sync with an Arcomium server.
+# fieldtrial_testing_config.json, which break sync with an Alerse server.
 disable_fieldtrial_testing_config = true
 ios_enable_code_signing = {signing}
 """
@@ -71,7 +71,7 @@ def main():
     src = args.src.expanduser().resolve()
 
     apply_patches(src)
-    # Arcomium's own source files are copied over the tree, not patched in.
+    # Alerse's own source files are copied over the tree, not patched in.
     shutil.copytree(CORE / 'src', src, dirs_exist_ok=True)
     shutil.copytree(BRANDING, src / 'ios', dirs_exist_ok=True)
     # Renaming the product moves hundreds of translations: a script, not a patch.
